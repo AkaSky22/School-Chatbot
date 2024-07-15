@@ -12,11 +12,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f9fa; /* Light pastel background */
+            background-color: #f0f6ff; /* Light blue background */
         }
         #open-chatbot-button {
             padding: 10px 20px;
-            background-color: #87CEFA; /* Light sky blue */
+            background-color: #2E8B57; /* Sea green */
             color: #ffffff;
             border: none;
             border-radius: 4px;
@@ -30,7 +30,7 @@
             right: 20px;
             width: 400px;
             padding: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -41,7 +41,7 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 4px;
-            background-color: #FFFACD; /* Light pastel yellow */
+            background-color: #f0f6ff; /* Light blue background */
         }
         .message {
             margin: 10px 0;
@@ -52,19 +52,19 @@
         }
         .message.bot {
             text-align: left;
-            color: #6A5ACD; /* Slate blue */
+            color: #2E8B57; /* Sea green */
         }
         #user-input {
             width: calc(100% - 60px);
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            background-color: #E6E6FA; /* Lavender */
+            background-color: #f0f8ff; /* Alice blue */
         }
         #send-button {
             padding: 10px;
             border: none;
-            background-color: #87CEFA; /* Light sky blue */
+            background-color: #2E8B57; /* Sea green */
             color: white;
             border-radius: 4px;
             cursor: pointer;
@@ -84,9 +84,36 @@
         document.getElementById('open-chatbot-button').addEventListener('click', function() {
             document.getElementById('chatbot-container').style.display = 'block';
             this.style.display = 'none';
+            greetUser();
         });
 
+        function greetUser() {
+            const greetings = [
+                "Hi there! How can I assist you today?",
+                "Hello! How may I help you?",
+                "Hey! What can I do for you?"
+            ];
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+
+            const chat = document.getElementById('chat');
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot';
+            botMessage.textContent = randomGreeting;
+            chat.appendChild(botMessage);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
         document.getElementById('send-button').addEventListener('click', function() {
+            processUserInput();
+        });
+
+        document.getElementById('user-input').addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                processUserInput();
+            }
+        });
+
+        function processUserInput() {
             const userInput = document.getElementById('user-input').value.trim().toLowerCase();
             const chat = document.getElementById('chat');
 
@@ -123,7 +150,7 @@
 
             document.getElementById('user-input').value = '';
             chat.scrollTop = chat.scrollHeight;
-        });
+        }
     </script>
 </body>
 </html>
