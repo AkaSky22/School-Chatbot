@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa; /* Light pastel background */
+        }
+        #open-chatbot-button {
+            padding: 10px 20px;
+            background-color: #87CEFA; /* Light sky blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #chatbot-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        #chat {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #FFFACD; /* Light pastel yellow */
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .message.user {
+            text-align: right;
+            color: #4682B4; /* Steel blue */
+        }
+        .message.bot {
+            text-align: left;
+            color: #6A5ACD; /* Slate blue */
+        }
+        #user-input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #E6E6FA; /* Lavender */
+        }
+        #send-button {
+            padding: 10px;
+            border: none;
+            background-color: #87CEFA; /* Light sky blue */
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="open-chatbot-button">Chat with us!</button>
+    
+    <div id="chatbot-container">
+        <div id="chat"></div>
+        <input type="text" id="user-input" placeholder="Ask a question...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        document.getElementById('open-chatbot-button').addEventListener('click', function() {
+            document.getElementById('chatbot-container').style.display = 'block';
+            this.style.display = 'none';
+        });
+
+        document.getElementById('send-button').addEventListener('click', function() {
+            const userInput = document.getElementById('user-input').value.trim().toLowerCase();
+            const chat = document.getElementById('chat');
+
+            if (userInput === '') {
+                return;
+            }
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.textContent = userInput;
+            chat.appendChild(userMessage);
+
+            let botResponse;
+            if (userInput.includes("location")) {
+                botResponse = "Our school is located at 123 Education Lane, Knowledge City.";
+            } else if (userInput.includes("teacher") || userInput.includes("teachers") || userInput.includes("faculty") || userInput.includes("faculties") || userInput.includes("staff")) {
+                botResponse = "Our teachers are highly qualified and experienced in their respective subjects.";
+            } else if (userInput.includes("facilities") || userInput.includes("facility")) {
+                botResponse = "Our school offers a wide range of facilities including a library, sports complex, science labs, and a computer center.";
+            } else if (userInput.includes("admission") || userInput.includes("admission process")) {
+                botResponse = "The admission process includes filling out an application form, a written test, and an interview.";
+            } else if (userInput.includes("school hours") || userInput.includes("hours") || userInput.includes("timing")) {
+                botResponse = "The school operates from 8:00 AM to 3:00 PM, Monday to Friday.";
+            } else if (userInput.includes("contact") || userInput.includes("phone") || userInput.includes("email")) {
+                botResponse = "You can contact us at (123) 456-7890 or email us at info@ourschool.edu.";
+            } else {
+                botResponse = "I'm sorry, I don't have the information you're looking for. Can you please rephrase your question?";
+            }
+
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot';
+            botMessage.textContent = botResponse;
+            chat.appendChild(botMessage);
+
+            document.getElementById('user-input').value = '';
+            chat.scrollTop = chat.scrollHeight;
+        });
+    </script>
+</body>
+</html>
